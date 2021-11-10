@@ -1,6 +1,12 @@
 {{ if eq .chezmoi.osRelease.name "Ubuntu" -}}
 #!/bin/sh
+sudo apt install git -y
 sudo apt install ripgrep
+{{ else if eq .chezmoi.osRelease.id "rhel" -}}
+#!/bin/sh
+sudo dnf install git-all -y
+sudo yum-config-manager --add-repo=https://copr.fedorainfracloud.org/coprs/carlwgeorge/ripgrep/repo/epel-7/carlwgeorge-ripgrep-epel-7.repo
+sudo dnf install ripgrep -y
 {{ else if eq .chezmoi.os "darwin" -}}
 #!/bin/sh
 brew install ripgrep
