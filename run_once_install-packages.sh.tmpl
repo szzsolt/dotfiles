@@ -7,8 +7,8 @@ echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githu
 sudo apt update
 sudo apt install gh -y
 
-sudo apt install ripgrep
-sudo apt install jq
+sudo apt install ripgrep -y
+sudo apt install jq -y
 {{ else if eq .chezmoi.osRelease.id "rhel" -}}
 
 # Add fedora epel repo
