@@ -9,5 +9,6 @@ sudo yum-config-manager --add-repo=https://copr.fedorainfracloud.org/coprs/carlw
 sudo dnf install ripgrep -y
 {{ else if eq .chezmoi.os "darwin" -}}
 #!/bin/sh
+brew install git
 brew install ripgrep
 {{ end -}}
