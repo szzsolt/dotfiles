@@ -8,6 +8,7 @@ sudo apt update
 sudo apt install gh -y
 
 sudo apt install ripgrep
+sudo apt install jq
 {{ else if eq .chezmoi.osRelease.id "rhel" -}}
 
 # Add fedora epel repo
@@ -25,6 +26,7 @@ sudo dnf install gh -y
 
 sudo yum-config-manager --add-repo=https://copr.fedorainfracloud.org/coprs/carlwgeorge/ripgrep/repo/epel-7/carlwgeorge-ripgrep-epel-7.repo
 sudo dnf install ripgrep -y
+sudo dnf install jq -y
 {{ else if eq .chezmoi.os "darwin" -}}
 brew install git
 brew install gh
