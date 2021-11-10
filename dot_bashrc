@@ -1,0 +1,30 @@
+# .bashrc
+
+# Source global definitions
+if [ -f /etc/bashrc ]; then
+        . /etc/bashrc
+fi
+
+# User specific environment
+if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]
+then
+    PATH="$HOME/.local/bin:$HOME/bin:$PATH"
+fi
+export PATH
+
+# Kondor
+# TODO only set this when it was not set before
+export KPLUSHOME3=/usr/kplushome
+
+# TIBCO
+export TIBRV_HOME=/opt/tibco/tibrv/8.4
+PATH=$TIBRV_HOME/bin:$PATH
+export LD_LIBRARY_PATH=${TIBRV_HOME}/lib/64:${TIBRV_HOME}/lib:$LD_LIBRARY_PATH
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+
+# Add JBang to environment
+alias j!=jbang
+export PATH="$HOME/.jbang/bin:$PATH"
