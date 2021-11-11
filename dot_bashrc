@@ -12,14 +12,39 @@ then
 fi
 export PATH
 
-# Kondor
-# TODO only set this when it was not set before
-export KPLUSHOME3=/usr/kplushome
+# Set up minimal Kondor environment
 
-# TIBCO
-export TIBRV_HOME=/opt/tibco/tibrv/8.4
-PATH=$TIBRV_HOME/bin:$PATH
-export LD_LIBRARY_PATH=${TIBRV_HOME}/lib/64:${TIBRV_HOME}/lib:$LD_LIBRARY_PATH
+if [ -z $KPLUSHOME3 ]
+then
+	export KPLUSHOME3=/usr/kplushome
+fi
+
+if ! [ -d $KPLUSHOME3 ]
+then
+	echo "Cannot find \$KPLUSHOME3 $KPLUSHOME3"
+fi
+
+# Set up TIBCO environment if not otherwise 
+if [ -z $TIBRV_HOME ]
+then
+	export TIBRV_HOME=/opt/tibco/tibrv/8.4
+fi
+
+if ! [ -d $TIBRV_HOME ]
+then
+	echo "Cannot find \$TIBRV_HOME $TIBRV_HOME"
+else
+	if ! [[ "$PATH" =~ "$TIBRV_HOME/bin:" ]]
+	then
+		PATH=$TIBRV_HOME/bin:$PATH
+	fi
+
+	if ! [[ "$LD_LIBRARY_PATH" =~ "$TIBRV_HOME/lib/64:$TIBRV_HOME/lib:" ]]
+	then
+		export LD_LIBRARY_PATH=$TIBRV_HOME/lib/64:$TIBRV_HOME/lib:$LD_LIBRARY_PATH
+	fi
+fi
+
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
