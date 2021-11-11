@@ -41,7 +41,7 @@ else
 
 	if ! [[ "$LD_LIBRARY_PATH" =~ "$TIBRV_HOME/lib/64:$TIBRV_HOME/lib:" ]]
 	then
-		export LD_LIBRARY_PATH=$TIBRV_HOME/lib/64:$TIBRV_HOME/lib:$LD_LIBRARY_PATH
+		export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$TIBRV_HOME/lib/64:$TIBRV_HOME/lib
 	fi
 fi
 
