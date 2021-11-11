@@ -58,3 +58,5 @@ export PATH="$HOME/.jbang/bin:$PATH"
 [[ $PS1 && -f /usr/share/bash-completion/bash_completion ]] && \
     . /usr/share/bash-completion/bash_completion
 
+# Set EDITOR
+export EDITOR=vim
