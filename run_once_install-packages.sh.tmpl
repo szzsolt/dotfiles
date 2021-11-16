@@ -43,6 +43,10 @@ sudo dnf install -y yum-utils
 sudo yum-config-manager --add-repo https://rpm.releases.hashicorp.com/RHEL/hashicorp.repo
 sudo dnf -y install packer
 
+# Install ansible
+
+sudo dnf -y install ansible
+
 {{ else if eq .chezmoi.os "darwin" -}}
 brew install git
 brew install gh
