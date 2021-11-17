@@ -43,6 +43,14 @@ sudo dnf install -y yum-utils
 sudo yum-config-manager --add-repo https://rpm.releases.hashicorp.com/RHEL/hashicorp.repo
 sudo dnf -y install packer
 
+# Copy packer binary to home directory so it is at the front of the path and does not conflict with /usr/sbin/packer
+if ! [[ -d ~/.local/bin ]]
+then
+    mkdir -p ~/.local/bin
+fi
+
+cp /usr/bin/packer ~/.local/bin/
+
 {{ else if eq .chezmoi.os "darwin" -}}
 brew install git
 brew install gh
