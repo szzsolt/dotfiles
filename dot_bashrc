@@ -60,3 +60,27 @@ export PATH="$HOME/.jbang/bin:$PATH"
 
 # Set EDITOR
 export EDITOR=vim
+export KUBE_EDITOR=vim
+
+# shell prompt
+
+__bash_prompt() {
+    #local userpart='`export XIT=$? \
+        #&& [ ! -z "${GITHUB_USER}" ] && echo -n "\[\033[0;32m\]@${GITHUB_USER} " || echo -n "\[\033[0;32m\]\u " \
+        #&& [ "$XIT" -ne "0" ] && echo -n "\[\033[1;31m\]➜" || echo -n "\[\033[0m\]➜"`'
+    local userpart='\e[0;97m[ \u@\H\e[0m \e[01;93m\W\e[0;97m'
+    local gitbranch='`\
+        export BRANCH=$(git symbolic-ref --short HEAD 2>/dev/null || git rev-parse --short HEAD 2>/dev/null); \
+        if [ "${BRANCH}" != "" ]; then \
+            echo -n "\[\033[0;36m\](\[\033[1;91m\]${BRANCH}" \
+            && if git ls-files --error-unmatch -m --directory --no-empty-directory -o --exclude-standard ":/*" > /dev/null 2>&1; then \
+                    echo -n " \[\033[1;93m\]✗"; \
+               fi \
+            && echo -n "\[\033[0;36m\])"; \
+        fi`'
+    local removecolor='\[\033[0m\]'
+    PS1="${userpart} ${gitbranch}${removecolor}]\$ "
+    unset -f __bash_prompt
+}
+__bash_prompt
+
