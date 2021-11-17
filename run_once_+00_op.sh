@@ -16,8 +16,8 @@ fi
 
 curl -s https://cache.agilebits.com/dist/1P/op/pkg/v1.12.3/op_linux_amd64_v1.12.3.zip --output /tmp/op.zip
 cd /tmp
-unzip op.zip
+unzip -o op.zip
 gpg --receive-keys 3FEF9748469ADBE15DA7CA80AC2D62742012EA22
 gpg --verify op.sig op
 mv op ~/.local/bin
-op signin my zsolt@szalacsi.com
+eval $(op signin my zsolt@szalacsi.com)
