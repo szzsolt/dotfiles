@@ -1,4 +1,4 @@
-{{ eq "chezmoi.os" "linux" -}}
+{{ if eq "chezmoi.os" "linux" -}}
 #!/bin/sh
 
 # 1Password command line tool installation
@@ -22,4 +22,4 @@ unzip -o op.zip
 gpg --keyserver keyserver.ubuntu.com --receive-keys 3FEF9748469ADBE15DA7CA80AC2D62742012EA22
 gpg --verify op.sig op && mv op ~/.local/bin
 eval $(op signin my zsolt@szalacsi.com)
-{{ end --}}
+{{ end -}}
