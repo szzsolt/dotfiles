@@ -27,6 +27,16 @@ curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
 sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
 sudo apt-get update && sudo apt-get install packer
 
+# Install fish
+
+sudo apt-add-repository ppa:fish-shell/release-3
+sudo apt-get update
+sudo apt-get install fish
+
+# change shell to fish
+
+sudo chsh -s /usr/bin/fish zsolt
+
 {{ else if eq .chezmoi.osRelease.id "rhel" -}}
 
 # Add fedora epel repo
@@ -74,6 +84,16 @@ cp /usr/bin/packer ~/.local/bin/
 # Install ansible
 
 sudo dnf -y install ansible
+
+# Install fish
+
+cd /etc/yum.repos.d/
+sudo get https://download.opensuse.org/repositories/shells:fish:release:3/CentOS_8/shells:fish:release:3.repo
+sudo dnf install fish
+
+# change shell to fish
+
+sudo chsh -s /usr/bin/fish zsolt
 
 {{ else if eq .chezmoi.os "darwin" -}}
 brew install git
