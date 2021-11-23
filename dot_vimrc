@@ -1,3 +1,7 @@
+packadd! dracula
+syntax enable
+colorscheme dracula
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Maintainer:
 "       Amir Salihefendic — @amix3k
