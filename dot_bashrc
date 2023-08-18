@@ -19,21 +19,14 @@ then
 	export KPLUSHOME3=/usr/kplushome
 fi
 
-if ! [ -d $KPLUSHOME3 ]
-then
-	echo "Cannot find \$KPLUSHOME3 $KPLUSHOME3"
-fi
-
 # Set up TIBCO environment if not otherwise 
 if [ -z $TIBRV_HOME ]
 then
 	export TIBRV_HOME=/opt/tibco/tibrv/8.4
 fi
 
-if ! [ -d $TIBRV_HOME ]
+if [ -d $TIBRV_HOME ]
 then
-	echo "Cannot find \$TIBRV_HOME $TIBRV_HOME"
-else
 	if ! [[ "$PATH" =~ "$TIBRV_HOME/bin:" ]]
 	then
 		PATH=$TIBRV_HOME/bin:$PATH
