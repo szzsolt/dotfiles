@@ -2,10 +2,12 @@
 	helper = 
 	helper = !/usr/bin/gh auth git-credential
 [user]
-	email = zsolt@szalacsi.com
+	email = zsolt.szalacsi@stepforward.io
 	name = Zsolt Szalacsi
 [core]
 	autocrlf = input
 	editor = vim
 [init]
     defaultBranch = main
+[commit]
+	gpgsign = false
