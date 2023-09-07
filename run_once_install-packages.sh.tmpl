@@ -1,5 +1,6 @@
 #!/bin/sh
 {{ if eq .chezmoi.osRelease.name "Ubuntu" -}}
+sudo apt install zip unzip -y
 sudo apt install git -y
 
 curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo gpg --dearmor -o /usr/share/keyrings/githubcli-archive-keyring.gpg
@@ -10,6 +11,7 @@ sudo apt install gh -y
 sudo apt install ripgrep -y
 sudo apt install jq -y
 sudo apt install bash-completion -y
+sudo apt install fzf -y
 
 # Install bat
 
