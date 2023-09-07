@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/bash
 # Code extracted from https://stuartleeks.com/posts/wsl-ssh-key-forward-to-windows/ with minor modifications
 
 # Configure ssh forwarding
