@@ -1,13 +1,25 @@
 [credential "https://github.com"]
-	helper = 
-	helper = !/usr/bin/gh auth git-credential
+    helper = 
+    helper = !/usr/bin/gh auth git-credential
 [user]
 	email = zsolt.szalacsi@stepforward.io
 	name = Zsolt Szalacsi
+	signingkey = /home/zsolt/.ssh/github_zsolt_key.pub
 [core]
 	autocrlf = input
-	editor = vim
+	editor = code --wait
 [init]
     defaultBranch = main
 [commit]
 	gpgsign = false
+[filter "lfs"]
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
+[rebase]
+instructionFormat = %s [%an] # add the commit author to the end of each line
+[gpg]
+	format = ssh
+[gpg "ssh"]
+	allowedSignersFile = /home/zsolt/.config/git/allowed_ssh_signers

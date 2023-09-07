@@ -27,6 +27,14 @@ curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
 sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
 sudo apt-get update && sudo apt-get install packer
 
+# Install powershell
+sudo apt-get update
+sudo apt-get install -y wget apt-transport-https software-properties-common
+wget -q https://packages.microsoft.com/config/ubuntu/20.04/packages-microsoft-prod.deb
+sudo dpkg -i packages-microsoft-prod.deb
+sudo apt-get update
+sudo apt-get install -y powershell
+
 # Install fish
 
 sudo apt-add-repository ppa:fish-shell/release-3
@@ -84,6 +92,11 @@ cp /usr/bin/packer ~/.local/bin/
 # Install ansible
 
 sudo dnf -y install ansible
+
+# Install powershell
+
+curl https://packages.microsoft.com/config/rhel/8/prod.repo | sudo tee /etc/yum.repos.d/microsoft.repo
+sudo dnf -y install powershell
 
 # Install fish
 
