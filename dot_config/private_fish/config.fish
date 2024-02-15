@@ -12,5 +12,5 @@ alias vi vim
 
 # Generated for envman. Do not edit.
 test -s "$HOME/.config/envman/load.fish"; and source "$HOME/.config/envman/load.fish"
-
-bash ~/.local/bin/agent-bridge.sh
+source ~/.asdf/asdf.fish
+source ~/secret.fish
