@@ -113,32 +113,33 @@ sudo chsh -s /usr/bin/fish zsolt
 
 sudo dnf install dnf-plugins-core -y
 
-sudo dnf install git-all -y
-
 sudo dnf config-manager --add-repo https://cli.github.com/packages/rpm/gh-cli.repo
-sudo dnf install gh -y
-
-sudo dnf install ripgrep -y
-sudo dnf install jq -y
-sudo dnf install bash-completion -y
-
-sudo dnf install bat -y
-
 sudo dnf config-manager --add-repo https://rpm.releases.hashicorp.com/fedora/hashicorp.repo
-sudo dnf -y install packer
-
-sudo dnf -y install ansible
-
-# Install powershell
-
 curl https://packages.microsoft.com/config/rhel/8/prod.repo | sudo tee /etc/yum.repos.d/microsoft.repo
-sudo dnf -y install powershell
-
-# Install fish
-
 cd /etc/yum.repos.d/
 sudo get https://download.opensuse.org/repositories/shells:fish:release:3/CentOS_8/shells:fish:release:3.repo
-sudo dnf install fish
+sudo dnf copr enable -y atim/starship
+sudo dnf copr enable -y atim/zoxide
+sudo dnf copr enable -y atim/lazygit
+
+packages="git-all gh ripgrep jq bash-completion bat packer ansible powershell fish starship zoxide fzf neovim python3-neovim gcc gcc-c++ lazygit fd-find glibc-langpack-en make patch zlib-devel bzip2 bzip2-devel readline-devel sqlite sqlite-devel openssl-devel tk-devel libffi-devel xz-devel libuuid-devel gdbm-libs libnsl2"
+
+sudo dnf install -y ${packages}
+
+# atuin
+cd /tmp
+wget https://github.com/atuinsh/atuin/releases/download/v18.0.2/atuin-v18.0.2-x86_64-unknown-linux-musl.tar.gz
+tar zxvf atuin-v18.0.2-x86_64-unknown-linux-musl.tar.gz
+cd atuin-v18.0.2-x86_64-unknown-linux-musl
+cp atuin ~/.local/bin
+sudo cp completions/atuin.bash /usr/share/bash-completion/completions/atuin
+cp completions/atuin.fish ~/.config/fish/completions/atuin.fish
+
+# zellij
+cd /tmp/
+wget https://github.com/zellij-org/zellij/releases/download/v0.39.2/zellij-x86_64-unknown-linux-musl.tar.gz
+tar zxvf zellij-x86_64-unknown-linux-musl.tar.gz
+cp zellij ~/.local/bin/
 
 # change shell to fish
 
@@ -158,6 +159,10 @@ brew install hashicorp/tap/packer
 {{ end -}}
 
 curl -s "https://get.sdkman.io" | bash
-git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.14.0
+
+if ! [[ -d ~/.asdf ]]
+then
+  git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.14.0
+fi
 
 
