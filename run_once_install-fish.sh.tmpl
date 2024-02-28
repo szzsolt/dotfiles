@@ -23,6 +23,12 @@ sudo dnf install fish
 
 sudo chsh -s /usr/bin/fish zsolt
 
+{{ else if eq .chezmoi.osRelease.id "fedora" -}}
+sudo dnf install fish
+
+# change shell to fish
+
+sudo chsh -s /usr/bin/fish zsolt
 {{ else if eq .chezmoi.os "darwin" -}}
 # Install fish
 

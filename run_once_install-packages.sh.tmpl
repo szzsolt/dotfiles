@@ -109,6 +109,40 @@ sudo dnf install fish
 # change shell to fish
 
 sudo chsh -s /usr/bin/fish zsolt
+{{ else if eq .chezmoi.osRelease.id "fedora" -}}
+
+sudo dnf install dnf-plugins-core -y
+
+sudo dnf install git-all -y
+
+sudo dnf config-manager --add-repo https://cli.github.com/packages/rpm/gh-cli.repo
+sudo dnf install gh -y
+
+sudo dnf install ripgrep -y
+sudo dnf install jq -y
+sudo dnf install bash-completion -y
+
+sudo dnf install bat -y
+
+sudo dnf config-manager --add-repo https://rpm.releases.hashicorp.com/fedora/hashicorp.repo
+sudo dnf -y install packer
+
+sudo dnf -y install ansible
+
+# Install powershell
+
+curl https://packages.microsoft.com/config/rhel/8/prod.repo | sudo tee /etc/yum.repos.d/microsoft.repo
+sudo dnf -y install powershell
+
+# Install fish
+
+cd /etc/yum.repos.d/
+sudo get https://download.opensuse.org/repositories/shells:fish:release:3/CentOS_8/shells:fish:release:3.repo
+sudo dnf install fish
+
+# change shell to fish
+
+sudo chsh -s /usr/bin/fish zsolt
 
 {{ else if eq .chezmoi.os "darwin" -}}
 brew install git
@@ -124,4 +158,6 @@ brew install hashicorp/tap/packer
 {{ end -}}
 
 curl -s "https://get.sdkman.io" | bash
+git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.14.0
+
 
