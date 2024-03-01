@@ -126,6 +126,8 @@ packages="git-all gh ripgrep jq bash-completion bat packer ansible powershell fi
 
 sudo dnf install -y ${packages}
 
+gh extension install github/gh-copilot --force
+
 # atuin
 cd /tmp
 wget https://github.com/atuinsh/atuin/releases/download/v18.0.2/atuin-v18.0.2-x86_64-unknown-linux-musl.tar.gz
