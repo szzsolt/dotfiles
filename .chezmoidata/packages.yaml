@@ -8,7 +8,7 @@ packages:
   - 'https://download.docker.com/linux/fedora/docker-ce.repo'
   - 'https://cli.github.com/packages/rpm/gh-cli.repo'
   - 'https://rpm.releases.hashicorp.com/fedora/hashicorp.repo'
-  - 'https://packages.microsoft.com/config/rhel/8/prod.repo'
+  - 'https://packages.microsoft.com/config/fedora/39/prod.repo'
   - 'https://download.opensuse.org/repositories/shells:fish:release:3/Fedora_39/shells:fish:release:3.repo'
   - 'https://raw.githubusercontent.com/szzsolt/dotfiles/main/1password.repo'
   dnf:
