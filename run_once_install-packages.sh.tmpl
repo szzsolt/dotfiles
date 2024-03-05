@@ -111,44 +111,38 @@ sudo dnf install fish
 sudo chsh -s /usr/bin/fish zsolt
 {{ else if eq .chezmoi.osRelease.id "fedora" -}}
 
-sudo dnf install dnf-plugins-core -y
+  sudo dnf install dnf-plugins-core -y
 
-sudo dnf config-manager --add-repo https://cli.github.com/packages/rpm/gh-cli.repo
-sudo dnf config-manager --add-repo https://rpm.releases.hashicorp.com/fedora/hashicorp.repo
-curl https://packages.microsoft.com/config/rhel/8/prod.repo | sudo tee /etc/yum.repos.d/microsoft.repo
-cd /etc/yum.repos.d/
-sudo get https://download.opensuse.org/repositories/shells:fish:release:3/CentOS_8/shells:fish:release:3.repo
-sudo dnf copr enable -y atim/starship
-sudo dnf copr enable -y atim/zoxide
-sudo dnf copr enable -y atim/lazygit
-sudo rpm --import https://downloads.1password.com/linux/keys/1password.asc
-sudo sh -c 'echo -e "[1password]\nname=1Password Stable Channel\nbaseurl=https://downloads.1password.com/linux/rpm/stable/\$basearch\nenabled=1\ngpgcheck=1\nrepo_gpgcheck=1\ngpgkey=\"https://downloads.1password.com/linux/keys/1password.asc\"" > /etc/yum.repos.d/1password.repo'
-sudo dnf config-manager --add-repo https://pkg.cloudflare.com/cloudflared-ascii.repo
+  {{ if .packages }}
+  {{ range .packages.repo }}
+  sudo dnf config-manager --add-repo {{ . }}
+  {{ end }}
+  {{ range .packages.copr }}
+  sudo dnf copr enable -y {{ . }}
+  {{ end }}
+  {{ if .packages.dnf }}
+  dnf_packages=()
+  {{ range .packages.dnf }}
+  dnf_packages+=("{{ . }}")
+  {{ end }}
+  sudo dnf install -y $(printf " %s" "${dnf_packages[@]}")
+  {{ end }}
+  {{ end }}
 
-packages="git-all gh ripgrep jq bash-completion bat packer ansible powershell fish starship zoxide fzf neovim python3-neovim gcc gcc-c++ lazygit fd-find glibc-langpack-en make patch zlib-devel bzip2 bzip2-devel readline-devel sqlite sqlite-devel openssl-devel tk-devel libffi-devel xz-devel libuuid-devel gdbm-libs libnsl2 rclone azure-cli restic 1password-cli terraform cloudflared"
+  gh extension install github/gh-copilot --force
 
-sudo dnf install -y ${packages}
+  # atuin
+  cd /tmp
+  wget https://github.com/atuinsh/atuin/releases/download/v18.0.2/atuin-v18.0.2-x86_64-unknown-linux-musl.tar.gz
+  tar zxvf atuin-v18.0.2-x86_64-unknown-linux-musl.tar.gz
+  cd atuin-v18.0.2-x86_64-unknown-linux-musl
+  cp atuin ~/.local/bin
+  sudo cp completions/atuin.bash /usr/share/bash-completion/completions/atuin
+  cp completions/atuin.fish ~/.config/fish/completions/atuin.fish
 
-gh extension install github/gh-copilot --force
+  # change shell to fish
 
-# atuin
-cd /tmp
-wget https://github.com/atuinsh/atuin/releases/download/v18.0.2/atuin-v18.0.2-x86_64-unknown-linux-musl.tar.gz
-tar zxvf atuin-v18.0.2-x86_64-unknown-linux-musl.tar.gz
-cd atuin-v18.0.2-x86_64-unknown-linux-musl
-cp atuin ~/.local/bin
-sudo cp completions/atuin.bash /usr/share/bash-completion/completions/atuin
-cp completions/atuin.fish ~/.config/fish/completions/atuin.fish
-
-# zellij
-cd /tmp/
-wget https://github.com/zellij-org/zellij/releases/download/v0.39.2/zellij-x86_64-unknown-linux-musl.tar.gz
-tar zxvf zellij-x86_64-unknown-linux-musl.tar.gz
-cp zellij ~/.local/bin/
-
-# change shell to fish
-
-sudo chsh -s /usr/bin/fish zsolt
+  sudo chsh -s /usr/bin/fish zsolt
 
 {{ else if eq .chezmoi.os "darwin" -}}
 brew install git
