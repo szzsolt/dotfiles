@@ -49,80 +49,49 @@ sudo chsh -s /usr/bin/fish zsolt
 
 {{ else if eq .chezmoi.osRelease.id "rhel" -}}
 
-# Add fedora epel repo
-# 
-sudo dnf install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
-# Work around issue for RHEL 8.1
-{{ if eq .chezmoi.osRelease.versionID "8.1" -}}
-sudo sed -i 's/$releasever/8/g' /etc/yum.repos.d/epel*.repo
-{{ end -}}
+  sudo dnf install dnf-plugins-core -y
 
-sudo dnf install git-all -y
+  {{ if .packages.rhel9 }}
+  {{ range .packages.rhel9.repo }}
+  sudo dnf config-manager --add-repo {{ . }}
+  {{ end }}
+  {{ range .packages.rhel9.copr }}
+  sudo dnf copr enable -y {{ . }}
+  {{ end }}
+  {{ if .packages.rhel9.dnf }}
+  dnf_packages=()
+  {{ range .packages.rhel9.dnf }}
+  dnf_packages+=("{{ . }}")
+  {{ end }}
+  sudo dnf install -y $(printf " %s" "${dnf_packages[@]}")
+  {{ end }}
+  {{ end }}
 
-sudo dnf config-manager --add-repo https://cli.github.com/packages/rpm/gh-cli.repo
-sudo dnf install gh -y
+  gh extension install github/gh-copilot --force
 
-sudo yum-config-manager --add-repo=https://copr.fedorainfracloud.org/coprs/carlwgeorge/ripgrep/repo/epel-7/carlwgeorge-ripgrep-epel-7.repo
-sudo dnf install ripgrep -y
-sudo dnf install jq -y
-sudo dnf install bash-completion -y
+  # atuin
+  cd /tmp
+  wget https://github.com/atuinsh/atuin/releases/download/v18.0.2/atuin-v18.0.2-x86_64-unknown-linux-musl.tar.gz
+  tar zxvf atuin-v18.0.2-x86_64-unknown-linux-musl.tar.gz
+  cd atuin-v18.0.2-x86_64-unknown-linux-musl
+  cp atuin ~/.local/bin
+  sudo cp completions/atuin.bash /usr/share/bash-completion/completions/atuin
+  cp completions/atuin.fish ~/.config/fish/completions/atuin.fish
 
-# Install bat
-
-cd /tmp
-wget https://github.com/sharkdp/bat/releases/download/v0.18.3/bat-v0.18.3-i686-unknown-linux-musl.tar.gz
-tar zxvf bat-v0.18.3-i686-unknown-linux-musl.tar.gz
-cd bat-v0.18.3-i686-unknown-linux-musl
-cp bat ~/.local/bin
-sudo cp autocomplete/bat.bash /usr/share/bash-completion/completions/bat
-# TODO install man page
-
-# Install packer
-
-sudo dnf install -y yum-utils
-sudo yum-config-manager --add-repo https://rpm.releases.hashicorp.com/RHEL/hashicorp.repo
-sudo dnf -y install packer
-
-# Copy packer binary to home directory so it is at the front of the path and does not conflict with /usr/sbin/packer
-if ! [[ -d ~/.local/bin ]]
-then
-    mkdir -p ~/.local/bin
-fi
-
-cp /usr/bin/packer ~/.local/bin/
-
-# Install ansible
-
-sudo dnf -y install ansible
-
-# Install powershell
-
-curl https://packages.microsoft.com/config/rhel/8/prod.repo | sudo tee /etc/yum.repos.d/microsoft.repo
-sudo dnf -y install powershell
-
-# Install fish
-
-cd /etc/yum.repos.d/
-sudo get https://download.opensuse.org/repositories/shells:fish:release:3/CentOS_8/shells:fish:release:3.repo
-sudo dnf install fish
-
-# change shell to fish
-
-sudo chsh -s /usr/bin/fish zsolt
 {{ else if eq .chezmoi.osRelease.id "fedora" -}}
 
   sudo dnf install dnf-plugins-core -y
 
-  {{ if .packages }}
-  {{ range .packages.repo }}
+  {{ if .packages.fedora }}
+  {{ range .packages.fedora.repo }}
   sudo dnf config-manager --add-repo {{ . }}
   {{ end }}
-  {{ range .packages.copr }}
+  {{ range .packages.fedora.copr }}
   sudo dnf copr enable -y {{ . }}
   {{ end }}
-  {{ if .packages.dnf }}
+  {{ if .packages.fedora.dnf }}
   dnf_packages=()
-  {{ range .packages.dnf }}
+  {{ range .packages.fedora.dnf }}
   dnf_packages+=("{{ . }}")
   {{ end }}
   sudo dnf install -y $(printf " %s" "${dnf_packages[@]}")
