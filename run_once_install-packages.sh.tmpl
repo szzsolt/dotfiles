@@ -49,6 +49,8 @@ sudo chsh -s /usr/bin/fish zsolt
 
 {{ else if eq .chezmoi.osRelease.id "rhel" -}}
 
+  sudo subscription-manager repos --enable codeready-builder-for-rhel-9-$(arch)-rpms
+  sudo dnf install https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm -y
   sudo dnf install dnf-plugins-core -y
 
   {{ if .packages.rhel9 }}
@@ -131,6 +133,7 @@ curl -s "https://get.sdkman.io" | bash
 if ! [[ -d ~/.asdf ]]
 then
   git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.14.0
+  mkdir -p ~/.config/fish/completions; and ln -s ~/.asdf/completions/asdf.fish ~/.config/fish/completions
 fi
 
 

@@ -107,3 +107,5 @@ export NVM_DIR="$HOME/.nvm"
 [[ -f ~/.bash-preexec.sh ]] && source ~/.bash-preexec.sh
 eval "$(atuin init --disable-up-arrow bash)"
 eval "$(starship init bash)"
+. "$HOME/.asdf/asdf.sh"
+. "$HOME/.asdf/completions/asdf.bash"
