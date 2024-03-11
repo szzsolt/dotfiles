@@ -55,6 +55,7 @@ packages:
     - 'terraform'
     - 'cloudflared'
     - 'zellij'
+    - 'tmux'
   fedora:
     copr:
     - 'atim/starship'
@@ -111,4 +112,5 @@ packages:
     - 'terraform'
     - 'cloudflared'
     - 'zellij'
+    - 'tmux'
 

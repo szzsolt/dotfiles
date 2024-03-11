@@ -1,5 +1,5 @@
 return {
-  -- add gruvbox
+  -- add cobalt2
   {
     "lalitmee/cobalt2.nvim",
     event = { "ColorSchemePre" }, -- if you want to lazy load
@@ -8,12 +8,15 @@ return {
       require("colorbuddy").colorscheme("cobalt2")
     end,
   },
+  {
+    "arcticicestudio/nord-vim",
+  },
 
-  -- Configure LazyVim to load gruvbox
+  -- Configure LazyVim to load color scheme
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "cobalt2",
+      colorscheme = "nord",
     },
   },
 }
