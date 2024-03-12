@@ -1,4 +1,6 @@
 format = """
+$os\
+$container\
 $username\
 $hostname\
 $localip\
@@ -77,13 +79,10 @@ $crystal\
 $custom\
 $sudo\
 $cmd_duration\
-$line_break\
 $jobs\
 $battery\
 $time\
 $status\
-$os\
-$container\
 $shell\
 $character"""
 
@@ -108,6 +107,8 @@ symbol = " "
 symbol = " "
 
 [directory]
+format = ':[$path ]($style)'
+fish_style_pwd_dir_length = 1
 read_only = " 󰌾"
 
 [docker_context]
@@ -127,6 +128,7 @@ symbol = " "
 
 [git_branch]
 symbol = " "
+format = '[$symbol$branch(:$remote_branch)]($style) '
 
 [golang]
 symbol = " "
@@ -146,7 +148,9 @@ symbol = " "
 [hostname]
 ssh_only = false
 ssh_symbol = " "
+format = '@[$hostname]($style)'
 disabled = false
+style = "green bold"
 
 [java]
 symbol = " "
@@ -263,6 +267,7 @@ symbol = " "
 
 [username]
 show_always = true
+format = '[$user]($style)'
 
 [zig]
 symbol = " "
