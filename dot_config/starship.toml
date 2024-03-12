@@ -254,11 +254,11 @@ symbol = " "
 symbol = " "
 
 [shell]
-fish_indicator = '󰈺 '
+fish_indicator = '󰈺'
 powershell_indicator = '_'
-nu_indicator = ' '
-bash_indicator = '󰏚 '
-unknown_indicator = '$ '
+nu_indicator = ''
+bash_indicator = '󰏚'
+unknown_indicator = '$'
 style = 'cyan bold'
 disabled = false
 
