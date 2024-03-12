@@ -84,14 +84,18 @@ command_timeout = 500
 add_newline = false
 
 [custom.username]
-command = "echo $USER"
+command = "echo -n $USER"
 when = "echo -n $USER | wc -m | xargs -I{} -- test {} -lt 6"
+format = "[$symbol$output]($style)"
 style = "yellow"
+shell = "sh"
 
 [custom.shortenedusername]
-command = "echo $USER | sed -r 's/^(.{4}).*(.{2})$/\\1 … \\2/'"
+command = "echo -n $USER | sed -r 's/^(.{4}).*(.{2})$/\\1…\\2/'"
 when = "echo -n $USER | wc -m | xargs -I{} -- test {} -gt 6"
+format = "[$symbol$output]($style)"
 style = "yellow"
+shell = "sh"
 
 [aws]
 symbol = "  "
@@ -163,7 +167,7 @@ symbol = " "
 [hostname]
 ssh_only = false
 ssh_symbol = " "
-format = '[$ssh_symbol$hostname]($style)'
+format = '[@$hostname]($style)'
 disabled = false
 style = "yellow"
 
