@@ -5,6 +5,7 @@ packages:
       - "atim/zoxide epel-8-x86_64"
       - "atim/lazygit"
         #- 'varlad/zellij fedora-37-x86_64'
+      - "atim/bottom"
     repo:
       - "https://download.docker.com/linux/centos/docker-ce.repo"
       - "https://cli.github.com/packages/rpm/gh-cli.repo"
@@ -60,12 +61,15 @@ packages:
       - "docker-buildx-plugin"
       - "docker-compose-plugin"
       - "qemu-kvm"
+      - "bottom"
+      - "pipx"
   fedora:
     copr:
       - "atim/starship"
       - "atim/zoxide"
       - "atim/lazygit"
       - "varlad/zellij"
+      - "atim/bottom"
     repo:
       - "https://download.docker.com/linux/fedora/docker-ce.repo"
       - "https://cli.github.com/packages/rpm/gh-cli.repo"
@@ -122,3 +126,5 @@ packages:
       - "docker-buildx-plugin"
       - "docker-compose-plugin"
       - "@virtualization"
+      - "bottom"
+      - "pipx"

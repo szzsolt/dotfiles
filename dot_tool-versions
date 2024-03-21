@@ -3,3 +3,4 @@ java temurin-17.0.10+7
 rust 1.76.0
 nodejs 21.6.2
 lazydocker 0.23.1
+maven 3.9.6
